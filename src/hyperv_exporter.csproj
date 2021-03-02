@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeSymbolsInSingleFile>true</IncludeSymbolsInSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ComputerInfo" Version="0.1.0-prerelease" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.0.1" />
+    <PackageReference Include="microsoft.wsman.management" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\libs\prometheus\dotnet_lib_prometheus.csproj" />
+  </ItemGroup>
+
+  <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
+    <Copy SourceFiles="install_service.ps1" DestinationFolder="$(PublishDir)" />
+    <Copy SourceFiles="remove_service.ps1" DestinationFolder="$(PublishDir)" />
+  </Target>
+
+</Project>
